@@ -7,8 +7,10 @@ version = "0.1"
 install_requires = [
     'bjoern',
     'colorlog',
+    'importscan',
     'omegaconf',
     'rutter',
+    'minicli',
     'zope.dottedname',
 ]
 
