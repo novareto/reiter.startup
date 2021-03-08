@@ -7,6 +7,7 @@ from minicli import cli, run
 from zope.dottedname import resolve
 from omegaconf import OmegaConf
 from rutter.urlmap import URLMap
+from reiter.amqp.worker import Worker
 from reiter.startup.utils import environment, make_logger
 from reiter.startup.tasker import AsyncioTasker
 from pkg_resources import iter_entry_points
@@ -32,6 +33,9 @@ def bjoern_server(configfile: pathlib.Path):
 
         #tasker = uvcreha.tasker.Tasker.create(apps)
         #tasker.start()
+        amqp_worker = Worker(root, config)
+        amqp_worker.start()
+
         try:
             if not config.server.socket:
                 logger.info(
@@ -48,6 +52,7 @@ def bjoern_server(configfile: pathlib.Path):
             pass
         finally:
             #tasker.stop()
+            amqp_worker.stop()
             pass
 
 

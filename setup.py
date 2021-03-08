@@ -8,9 +8,10 @@ install_requires = [
     'bjoern',
     'colorlog',
     'importscan',
-    'omegaconf',
-    'rutter',
     'minicli',
+    'omegaconf',
+    'reiter.amqp',
+    'rutter',
     'zope.dottedname',
 ]
 
