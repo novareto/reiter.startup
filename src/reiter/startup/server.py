@@ -20,15 +20,16 @@ def bjoern_server(configfile: pathlib.Path):
 )
     with environment(**config.environ):
         root = URLMap()
+        log = logger is not None and logger.info or logging.info
         for app in iter_entry_points('reiter.application.wsgiapps'):
             wsgiapp = app.load()
             wsgiapp.configure(config)
             root[app.name] = wsgiapp
+            log(f"App '{app.name}' loaded.")
 
         for plugin in iter_entry_points('reiter.application.modules'):
             module = plugin.load()
             importscan.scan(module)
-            log = logger is not None and logger.info or logging.info
             log(f"Plugin '{plugin.name}' loaded.")
 
         #tasker = uvcreha.tasker.Tasker.create(apps)
